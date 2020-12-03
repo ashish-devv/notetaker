@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="base::layout(~{::section})">
+<head>
+	<meta charset="UTF-8" />
+	<title></title>
+</head>
+<body>
+	<section>
+	<div class="jumbotron jumbotron-fluid bg-dark text-white">
+	  <div class="container">
+	    <h1 class="display-4" th:text="'Hey! '+${user.name}+'. 👦'">Hey! User 👦</h1>
+	    <p class="lead">All your Notes are Present here .</p>
+	  </div>
+	</div>
+	<div class="container">
+	<h1>Notes 📝</h1>
+	<div class="display-4" th:if="${list.empty}">No Notes Here,Right Now .
+	<a href="/user/addnote">Add Yours Now!</a>
+	 </div>
+	<div class="card text-center border border-dark mb-2" th:each="p: ${list}">
+	  <div class="card-body border border-dark">
+	    <h5 class="card-title" th:text="${p.note_heading}"></h5>
+	    <p class="card-text" th:utext="${p.note_content}"></p>
+	    <a th:href="@{|/user/deletenote/${p.nid}|}" class="btn btn-danger" onclick="return confirm('Are you sure to Delete?')">Delete 🚮</a>
+	    <a th:href="@{|/user/editnote/${p.nid}|}" class="btn btn-warning" onclick="return confirm('Are you sure to Edit?')">Edit ✏</a>
+	  </div>
+	  <div class="card-footer text-muted bg-dark text-white" th:text="'Created on '+${#dates.format(p.note_date, 'dd-MM-yyyy HH:mm')}">
+	  </div>
+	</div>
+	</div>
+
+	</section>
+	
+</body>
+</html>
